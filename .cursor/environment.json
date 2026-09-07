@@ -1,0 +1,13 @@
+{
+  "name": "tech-demos",
+  "install": "bun install",
+  "terminals": [
+    {
+      "name": "hello dev server",
+      "command": "cd apps/hello && bun run dev"
+    }
+  ],
+  "ports": [
+    3000
+  ]
+}
