@@ -59,7 +59,7 @@ const COUNT_WORDS: Record<string, number> = {
 };
 
 const FILLER =
-  /\b(please|can|could|would|you|give|me|add|create|make|pin|put|generate|drop|show|i|want|need|a|an|the|some|another|new|card|cards|vibe|vibes|mood|moods|board|for|about|of|with|to|on|my|that|feels?|like|something|inspired|by)\b/gi;
+  /\b(please|can|could|would|you|give|me|add|create|make|pin|put|generate|drop|show|i|want|need|a|an|the|some|another|new|more|card|cards|vibe|vibes|mood|moods|idea|ideas|option|options|board|for|about|of|with|to|on|my|that|feels?|like|something|inspired|by|one|single|two|couple|pair|three|few|four|five|\d+)\b/gi;
 
 function hash(s: string): number {
   let h = 2166136261;
@@ -94,31 +94,35 @@ function titleCase(s: string): string {
 
 function pickVibes(text: string): MoodCardInput[] {
   const lower = text.toLowerCase();
-  const matched = VIBES.filter((v) => v.keys.some((k) => lower.includes(k)));
+  // Rank vibes by how many of their keywords appear; ties keep deck order.
+  const matched = VIBES.map((v) => ({ v, score: v.keys.filter((k) => lower.includes(k)).length }))
+    .filter((m) => m.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map((m) => m.v);
 
-  const countMatch = lower.match(/\b(\d+|one|a|an|single|two|couple|pair|three|few|four|five)\b\s+(?:more\s+|new\s+|different\s+)?(?:vibes?|cards?|moods?|ideas?|options?)/);
+  // "three summer vibes", "a couple of cards", "5 ideas" → explicit count; otherwise one card.
+  const countMatch = lower.match(/\b(\d+|one|single|two|couple|pair|three|few|four|five)\b/);
   const requested = countMatch
-    ? Math.min(5, Number(countMatch[1]) || COUNT_WORDS[countMatch[1]] || 1)
-    : Math.max(1, matched.length);
+    ? Math.max(1, Math.min(5, Number(countMatch[1]) || COUNT_WORDS[countMatch[1]] || 1))
+    : 1;
 
   const picks: MoodCardInput[] = matched.slice(0, requested).map(toCard);
 
   if (picks.length === 0) {
-    // No known keyword: build a card from the user's own words.
+    // No known keyword: build a card from the user's own words, if any survive the filler strip.
     const phrase = lower.replace(FILLER, " ").replace(/[^\p{L}\p{N}\s'-]/gu, " ").replace(/\s+/g, " ").trim();
-    const seed = hash(lower);
-    const fallback = VIBES[seed % VIBES.length];
-    picks.push({
-      title: phrase ? titleCase(phrase).slice(0, 40) : "Unnamed Vibe",
-      blurb: phrase
-        ? `Everything that "${phrase}" makes you feel, pinned down before it drifts away.`
-        : "A feeling too vague to name and too good to lose.",
-      emoji: fallback.emoji,
-      accent: fallback.accent,
-    });
+    if (phrase) {
+      const fallback = VIBES[hash(lower) % VIBES.length];
+      picks.push({
+        title: titleCase(phrase).slice(0, 40),
+        blurb: `Everything that "${phrase}" makes you feel, pinned down before it drifts away.`,
+        emoji: fallback.emoji,
+        accent: fallback.accent,
+      });
+    }
   }
 
-  // Requested more than matched: fill deterministically from the rest of the deck.
+  // Requested more than matched (or nothing to go on): fill deterministically from the deck.
   let i = hash(lower);
   while (picks.length < requested) {
     const candidate = VIBES[i++ % VIBES.length];
@@ -189,10 +193,10 @@ async function* streamText(text: string): AsyncGenerator<BaseEvent> {
   yield { type: EventType.TEXT_MESSAGE_END, messageId } as BaseEvent;
 }
 
-async function* streamToolCall(name: string, args: unknown): AsyncGenerator<BaseEvent> {
+async function* streamToolCall(name: string, args: unknown, parentMessageId: string): AsyncGenerator<BaseEvent> {
   const toolCallId = crypto.randomUUID();
   const json = JSON.stringify(args);
-  yield { type: EventType.TOOL_CALL_START, toolCallId, toolCallName: name } as BaseEvent;
+  yield { type: EventType.TOOL_CALL_START, toolCallId, toolCallName: name, parentMessageId } as BaseEvent;
   // Stream args in a few slices so the in-chat generative UI shows the partial state.
   const slice = Math.max(12, Math.ceil(json.length / 4));
   for (let i = 0; i < json.length; i += slice) {
@@ -245,9 +249,11 @@ export async function* demoAgent({ input }: { input: RunAgentInput }): AsyncGene
   if (!last) return;
 
   // Follow-up run: the browser executed our tool call(s) and sent back results.
+  // Every tool message since the last user turn belongs to this exchange.
   if (last.role === "tool") {
     const results: ToolOutcome[] = [];
-    for (let i = messages.length - 1; i >= 0 && messages[i].role === "tool"; i--) {
+    for (let i = messages.length - 1; i >= 0 && messages[i].role !== "user"; i--) {
+      if (messages[i].role !== "tool") continue;
       try {
         results.unshift(JSON.parse(textOf(messages[i])) as ToolOutcome);
       } catch {
@@ -263,6 +269,7 @@ export async function* demoAgent({ input }: { input: RunAgentInput }): AsyncGene
   const text = textOf(last).trim();
   const lower = text.toLowerCase();
   const board = boardFromContext(input);
+  const assistantMessageId = crypto.randomUUID();
 
   if (/^(hi|hello|hey|yo|help|what can you do|who are you)\b/.test(lower) || lower.length < 3) {
     yield* streamText(HELP_TEXT);
@@ -274,7 +281,7 @@ export async function* demoAgent({ input }: { input: RunAgentInput }): AsyncGene
       yield* streamText("The board is already empty. Describe a vibe and I'll start pinning.");
       return;
     }
-    yield* streamToolCall(CLEAR_BOARD_TOOL, {});
+    yield* streamToolCall(CLEAR_BOARD_TOOL, {}, assistantMessageId);
     return;
   }
 
@@ -286,12 +293,12 @@ export async function* demoAgent({ input }: { input: RunAgentInput }): AsyncGene
   if (wantsUpdate) {
     const target = findTargetCard(text, board);
     if (target) {
-      yield* streamToolCall(UPDATE_CARD_TOOL, planUpdate(text, target));
+      yield* streamToolCall(UPDATE_CARD_TOOL, planUpdate(text, target), assistantMessageId);
       return;
     }
   }
 
   for (const card of pickVibes(text)) {
-    yield* streamToolCall(ADD_CARD_TOOL, card);
+    yield* streamToolCall(ADD_CARD_TOOL, card, assistantMessageId);
   }
 }
