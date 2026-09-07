@@ -1,0 +1,11 @@
+{
+  "name": "tech-demos",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter '*' dev",
+    "typecheck": "bun run --filter '*' typecheck"
+  }
+}
