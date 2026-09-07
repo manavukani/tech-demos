@@ -1,0 +1,13 @@
+{
+  "proposed": [
+    {
+      "id": "tanstack-start",
+      "title": "TanStack Start",
+      "url": "https://tanstack.com/start",
+      "date": "2026-09-06",
+      "slug": "tanstack-start-demo",
+      "source": "manual-pick"
+    }
+  ],
+  "built": []
+}
