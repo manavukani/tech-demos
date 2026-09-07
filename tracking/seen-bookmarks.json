@@ -7,7 +7,23 @@
       "date": "2026-09-06",
       "slug": "tanstack-start-demo",
       "source": "manual-pick"
+    },
+    {
+      "id": "copilotkit",
+      "title": "CopilotKit",
+      "url": "https://www.copilotkit.ai/",
+      "date": "2026-09-07",
+      "slug": "copilotkit-moodboard",
+      "source": "manual-buzz-pick",
+      "x_pulse_7d": 168
     }
   ],
-  "built": []
+  "built": [
+    {
+      "id": "tanstack-start",
+      "slug": "tanstack-start-demo",
+      "pr": "https://github.com/manavukani/tech-demos/pull/2",
+      "date": "2026-09-06"
+    }
+  ]
 }
