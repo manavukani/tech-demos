@@ -15,7 +15,9 @@
       "date": "2026-09-07",
       "slug": "copilotkit-moodboard",
       "source": "manual-buzz-pick",
-      "x_pulse_7d": 168
+      "x_pulse_7d": 168,
+      "status": "in-progress",
+      "pr": "https://github.com/manavukani/tech-demos/pull/3"
     }
   ],
   "built": [
