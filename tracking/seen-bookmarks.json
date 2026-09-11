@@ -21,13 +21,13 @@
     },
     {
       "id": "json-render",
-      "title": "json-render",
+      "title": "json-render (Vercel Labs)",
       "url": "https://json-render.dev/",
-      "date": "2026-09-10",
+      "date": "2026-09-11",
       "slug": "json-render-dashboard",
-      "source": "manual-buzz-pick",
-      "x_pulse_7d": 7,
-      "note": "Vercel Labs generative UI; strong GitHub heat (~15k stars)"
+      "source": "owner-approved-pick",
+      "status": "in-progress",
+      "pr": "https://github.com/manavukani/tech-demos/pull/4"
     }
   ],
   "built": [
