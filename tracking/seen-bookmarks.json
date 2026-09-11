@@ -16,7 +16,7 @@
       "slug": "copilotkit-moodboard",
       "source": "manual-buzz-pick",
       "x_pulse_7d": 168,
-      "status": "in-progress",
+      "status": "built",
       "pr": "https://github.com/manavukani/tech-demos/pull/3"
     },
     {
@@ -36,6 +36,12 @@
       "slug": "tanstack-start-demo",
       "pr": "https://github.com/manavukani/tech-demos/pull/2",
       "date": "2026-09-06"
+    },
+    {
+      "id": "copilotkit",
+      "slug": "copilotkit-moodboard",
+      "pr": "https://github.com/manavukani/tech-demos/pull/3",
+      "date": "2026-09-07"
     }
   ]
 }
