@@ -1,8 +1,8 @@
 import { DownloadIcon, RotateCcwIcon, Trash2Icon } from 'lucide-react'
-import { useEffect, useMemo } from 'react'
 import { Highlight } from '@/components/highlight'
 import { StatusBadge } from '@/components/status-badge'
 import { TagEditor } from '@/components/tag-editor'
+import { useObjectUrl } from '@/hooks/use-object-url'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -19,8 +19,7 @@ interface DocumentDetailProps {
 }
 
 export function DocumentDetail({ doc, terms, allTags, onTags, onDelete, onRetry }: DocumentDetailProps) {
-  const url = useMemo(() => URL.createObjectURL(doc.blob), [doc.blob])
-  useEffect(() => () => URL.revokeObjectURL(url), [url])
+  const url = useObjectUrl(doc.blob)
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -35,7 +34,12 @@ export function DocumentDetail({ doc, terms, allTags, onTags, onDelete, onRetry 
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" render={<a href={url} download={doc.name} />}>
+          <Button
+            variant="outline"
+            size="sm"
+            nativeButton={false}
+            render={<a href={url} download={doc.name} />}
+          >
             <DownloadIcon data-icon="inline-start" />
             Download
           </Button>
@@ -100,7 +104,8 @@ export function DocumentDetail({ doc, terms, allTags, onTags, onDelete, onRetry 
   )
 }
 
-function Preview({ doc, url }: { doc: InboxDocument; url: string }) {
+function Preview({ doc, url }: { doc: InboxDocument; url?: string }) {
+  if (!url) return null
   if (doc.kind === 'image') {
     return (
       <div className="flex max-h-[60vh] items-center justify-center overflow-hidden rounded-lg border bg-muted/30">
@@ -110,6 +115,13 @@ function Preview({ doc, url }: { doc: InboxDocument; url: string }) {
   }
   if (doc.kind === 'pdf') {
     return <iframe src={url} title={doc.name} className="h-[60vh] w-full rounded-lg border bg-white" />
+  }
+  if (doc.kind === 'other') {
+    return (
+      <p className="rounded-lg border bg-muted/30 p-3 text-sm text-muted-foreground">
+        No preview for this file type. Use Download to open it with another app.
+      </p>
+    )
   }
   return (
     <ScrollArea className="h-full max-h-[60vh] rounded-lg border bg-muted/30">

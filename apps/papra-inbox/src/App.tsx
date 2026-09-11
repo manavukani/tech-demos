@@ -47,9 +47,11 @@ export default function App() {
     })
   }, [docs, index, trimmedQuery, searching, activeTags])
 
-  // Fall back to the newest document when nothing (or a deleted doc) is selected.
-  const selected = docs.find((d) => d.id === selectedId) ?? docs[0] ?? null
-  const selectedTerms = items.find((i) => i.doc.id === selected?.id)?.terms ?? []
+  // Prefer the explicit selection if it is visible, otherwise the first visible
+  // result (so the detail pane follows the search), otherwise the newest doc.
+  const selectedItem = items.find((i) => i.doc.id === selectedId) ?? items[0]
+  const selected = selectedItem?.doc ?? docs.find((d) => d.id === selectedId) ?? docs[0] ?? null
+  const selectedTerms = selectedItem?.terms ?? []
 
   const ingest = async (files: File[]) => {
     const ids = await addFiles(files)
