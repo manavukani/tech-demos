@@ -42,13 +42,27 @@ async function extractPlainText(blob: Blob): Promise<ExtractResult> {
     : { text: '', status: 'unavailable', note: 'The file is empty.' }
 }
 
-async function loadPdfjs() {
+export async function loadPdfjs() {
   const pdfjs = await import('pdfjs-dist')
   if (!pdfjs.GlobalWorkerOptions.workerSrc) {
     const { default: workerSrc } = await import('pdfjs-dist/build/pdf.worker.min.mjs?url')
     pdfjs.GlobalWorkerOptions.workerSrc = workerSrc
   }
   return pdfjs
+}
+
+export async function renderPdfPage(
+  page: import('pdfjs-dist').PDFPageProxy,
+  scale: number,
+): Promise<HTMLCanvasElement> {
+  const viewport = page.getViewport({ scale })
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.ceil(viewport.width)
+  canvas.height = Math.ceil(viewport.height)
+  const canvasContext = canvas.getContext('2d')
+  if (!canvasContext) throw new Error('Canvas 2D context unavailable')
+  await page.render({ canvas, canvasContext, viewport }).promise
+  return canvas
 }
 
 async function extractPdf(blob: Blob, onProgress: ProgressFn): Promise<ExtractResult> {
@@ -93,14 +107,7 @@ async function extractPdf(blob: Blob, onProgress: ProgressFn): Promise<ExtractRe
   const ocrPages = Math.min(pageCount, MAX_OCR_PAGES)
   const ocrText: string[] = []
   for (let i = 1; i <= ocrPages; i++) {
-    const page = await pdf.getPage(i)
-    const viewport = page.getViewport({ scale: 2 })
-    const canvas = document.createElement('canvas')
-    canvas.width = Math.ceil(viewport.width)
-    canvas.height = Math.ceil(viewport.height)
-    const canvasContext = canvas.getContext('2d')
-    if (!canvasContext) throw new Error('Canvas 2D context unavailable')
-    await page.render({ canvas, canvasContext, viewport }).promise
+    const canvas = await renderPdfPage(await pdf.getPage(i), 2)
     const pageText = await ocr(canvas, (p) =>
       onProgress((i - 1 + p) / ocrPages, `No text layer — OCR page ${i}/${ocrPages}`),
     )

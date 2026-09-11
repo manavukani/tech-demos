@@ -1,5 +1,6 @@
 import { DownloadIcon, RotateCcwIcon, Trash2Icon } from 'lucide-react'
 import { Highlight } from '@/components/highlight'
+import { PdfPreview } from '@/components/pdf-preview'
 import { StatusBadge } from '@/components/status-badge'
 import { TagEditor } from '@/components/tag-editor'
 import { useObjectUrl } from '@/hooks/use-object-url'
@@ -114,7 +115,7 @@ function Preview({ doc, url }: { doc: InboxDocument; url?: string }) {
     )
   }
   if (doc.kind === 'pdf') {
-    return <iframe src={url} title={doc.name} className="h-[60vh] w-full rounded-lg border bg-white" />
+    return <PdfPreview blob={doc.blob} name={doc.name} />
   }
   if (doc.kind === 'other') {
     return (

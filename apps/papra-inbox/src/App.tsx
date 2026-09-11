@@ -1,5 +1,5 @@
 import { InboxIcon, SearchIcon, SparklesIcon, XIcon } from 'lucide-react'
-import { useMemo, useState, type DragEvent } from 'react'
+import { useEffect, useMemo, useState, type DragEvent } from 'react'
 import { DocumentDetail } from '@/components/document-detail'
 import { DocumentList, type ListItem } from '@/components/document-list'
 import { DropZone } from '@/components/drop-zone'
@@ -80,6 +80,18 @@ export default function App() {
     if (files.length) void ingest(files)
   }
 
+  // A file dropped anywhere the app doesn't handle would make the browser
+  // navigate to it and replace the inbox; block that at the window level.
+  useEffect(() => {
+    const block = (e: Event) => e.preventDefault()
+    window.addEventListener('dragover', block)
+    window.addEventListener('drop', block)
+    return () => {
+      window.removeEventListener('dragover', block)
+      window.removeEventListener('drop', block)
+    }
+  }, [])
+
   return (
     <div
       className="relative flex h-screen flex-col bg-background text-foreground"
@@ -93,7 +105,8 @@ export default function App() {
       onDrop={onDrop}
     >
       {dragging && (
-        <div className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+        // Sits above everything (including previews) so it owns the drop.
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
           <div className="rounded-2xl border-2 border-dashed border-ring px-10 py-8 text-center">
             <InboxIcon className="mx-auto mb-2 size-8" />
             <p className="text-lg font-medium">Drop to add to your inbox</p>
