@@ -6,7 +6,7 @@ Single-user demo of [json-render](https://json-render.dev/) (Vercel Labs). You t
 
 ```bash
 bun install
-bun run dev      # http://localhost:3000
+`bun run dev`      # http://localhost:3000
 ```
 
 No API key is required. With none set the app runs in **mock mode** (badge: `Mock mode · scripted generator`): a scripted generator stands in for the LLM and emits the same JSONL patch stream a model would. Try:
