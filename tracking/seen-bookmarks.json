@@ -18,6 +18,16 @@
       "x_pulse_7d": 168,
       "status": "in-progress",
       "pr": "https://github.com/manavukani/tech-demos/pull/3"
+    },
+    {
+      "id": "json-render",
+      "title": "json-render (Vercel Labs)",
+      "url": "https://json-render.dev/",
+      "date": "2026-09-11",
+      "slug": "json-render-dashboard",
+      "source": "owner-approved-pick",
+      "status": "in-progress",
+      "pr": "https://github.com/manavukani/tech-demos/pull/4"
     }
   ],
   "built": [
