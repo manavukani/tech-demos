@@ -1,6 +1,6 @@
 "use client";
 
-import { Renderer, StateProvider, VisibilityProvider, useUIStream } from "@json-render/react";
+import { JSONUIProvider, Renderer, useUIStream } from "@json-render/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { catalog, componentDescriptions, componentNames } from "@/lib/catalog";
 import { registry } from "@/lib/registry";
@@ -111,11 +111,9 @@ export function DashboardStudio({ modeLabel, isMock }: Props) {
       <div className="grid flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <main className="min-h-[24rem] rounded-2xl border border-zinc-800 bg-zinc-950/60 p-5" data-testid="canvas">
           {hasSpec ? (
-            <StateProvider initialState={{}}>
-              <VisibilityProvider>
-                <Renderer spec={spec} registry={registry} loading={isStreaming} />
-              </VisibilityProvider>
-            </StateProvider>
+            <JSONUIProvider registry={registry}>
+              <Renderer spec={spec} registry={registry} loading={isStreaming} />
+            </JSONUIProvider>
           ) : (
             <div className="flex h-full min-h-[20rem] flex-col items-center justify-center gap-2 text-center text-sm text-zinc-500">
               <p className="text-zinc-300">{isStreaming ? "Waiting for the first patch…" : "Nothing rendered yet."}</p>

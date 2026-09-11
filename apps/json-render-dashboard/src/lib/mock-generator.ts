@@ -13,8 +13,10 @@ type Leaf = { type: Element["type"]; props: Record<string, unknown> };
 
 const COMPONENT_LIST = catalog.componentNames.join(", ");
 
-// Things people commonly ask for that are deliberately NOT in the catalog.
+// Things people commonly ask for that are deliberately NOT in the catalog (matched as whole words).
 const UNSUPPORTED = ["pie chart", "pie", "map", "table", "gauge", "calendar", "image", "photo", "video", "form", "button"];
+const unsupportedAsked = (prompt: string) =>
+  UNSUPPORTED.find((w) => new RegExp(`\\b${w.replace(" ", "\\s+")}s?\\b`, "i").test(prompt));
 
 const leaf = (type: Element["type"], props: Record<string, unknown>): Element => ({ type, props, children: [] });
 
@@ -154,8 +156,7 @@ function pickScenario(prompt: string): Scenario {
 
 function buildSteps(prompt: string): Step[] {
   const s = pickScenario(prompt);
-  const lower = prompt.toLowerCase();
-  const asked = UNSUPPORTED.find((w) => lower.includes(w));
+  const asked = unsupportedAsked(prompt);
 
   const children = ["kpi-heading", "m1", "m2", "m3", "chart", "list"];
   if (asked) children.push("guardrail");
