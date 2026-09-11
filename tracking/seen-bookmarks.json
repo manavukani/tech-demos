@@ -16,8 +16,18 @@
       "slug": "copilotkit-moodboard",
       "source": "manual-buzz-pick",
       "x_pulse_7d": 168,
-      "status": "in-progress",
+      "status": "built",
       "pr": "https://github.com/manavukani/tech-demos/pull/3"
+    },
+    {
+      "id": "json-render",
+      "title": "json-render",
+      "url": "https://json-render.dev/",
+      "date": "2026-09-10",
+      "slug": "json-render-dashboard",
+      "source": "manual-buzz-pick",
+      "x_pulse_7d": 7,
+      "note": "Vercel Labs generative UI; strong GitHub heat (~15k stars)"
     }
   ],
   "built": [
@@ -26,6 +36,12 @@
       "slug": "tanstack-start-demo",
       "pr": "https://github.com/manavukani/tech-demos/pull/2",
       "date": "2026-09-06"
+    },
+    {
+      "id": "copilotkit",
+      "slug": "copilotkit-moodboard",
+      "pr": "https://github.com/manavukani/tech-demos/pull/3",
+      "date": "2026-09-07"
     }
   ]
 }
