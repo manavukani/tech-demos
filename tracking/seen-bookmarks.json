@@ -28,6 +28,22 @@
       "source": "owner-approved-pick",
       "status": "in-progress",
       "pr": "https://github.com/manavukani/tech-demos/pull/4"
+    },
+    {
+      "id": "papra",
+      "title": "Papra",
+      "url": "https://x.com/GithubProjects/status/2097935612896784720",
+      "homepage": "https://papra.app/en/",
+      "repo": "https://github.com/papra-hq/papra",
+      "date": "2026-09-11",
+      "slug": "papra-inbox",
+      "source": "daily-x-tech-scout",
+      "x_pulse_7d": 183,
+      "bookmark_metrics": {
+        "likes": 234,
+        "reposts": 26,
+        "bookmarks": 200
+      }
     }
   ],
   "built": [
