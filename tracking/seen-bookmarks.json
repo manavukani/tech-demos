@@ -44,6 +44,17 @@
         "reposts": 26,
         "bookmarks": 200
       }
+    },
+    {
+      "id": "3dmol",
+      "title": "3Dmol.js",
+      "url": "https://3dmol.org/",
+      "repo": "https://github.com/3dmol/3Dmol.js",
+      "date": "2026-09-16",
+      "slug": "3dmol-molecule-lab",
+      "source": "owner-approved-pick",
+      "status": "in-progress",
+      "pr": "https://github.com/manavukani/tech-demos/pull/6"
     }
   ],
   "built": [
