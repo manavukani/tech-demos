@@ -2,54 +2,44 @@
   "proposed": [
     {
       "id": "tanstack-start",
-      "title": "TanStack Start",
-      "url": "https://tanstack.com/start",
-      "date": "2026-09-06",
       "slug": "tanstack-start-demo",
       "status": "built"
     },
     {
       "id": "copilotkit",
-      "title": "CopilotKit",
-      "url": "https://www.copilotkit.ai/",
-      "date": "2026-09-07",
       "slug": "copilotkit-moodboard",
       "status": "built"
     },
     {
       "id": "json-render",
-      "title": "json-render",
-      "url": "https://json-render.dev/",
-      "date": "2026-09-11",
       "slug": "json-render-dashboard",
       "status": "built"
     },
     {
       "id": "papra",
-      "title": "Papra",
-      "url": "https://papra.app/",
-      "date": "2026-09-11",
       "slug": "papra-inbox",
       "status": "built"
     },
     {
       "id": "tonejs",
-      "title": "Tone.js",
-      "url": "https://tonejs.github.io/",
-      "date": "2026-09-16",
       "slug": "tonejs-orbital-chimes",
       "status": "skipped"
     },
     {
       "id": "alphagenome-igv",
-      "title": "AlphaGenome-inspired tracks (igv.js)",
-      "url": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
-      "lib": "https://github.com/igvteam/igv.js",
-      "date": "2026-09-16",
       "slug": "alphagenome-tracks",
+      "status": "skipped",
+      "note": "user preferred 3Dmol chemistry"
+    },
+    {
+      "id": "3dmol",
+      "title": "3Dmol.js",
+      "url": "https://3dmol.org/",
+      "repo": "https://github.com/3dmol/3Dmol.js",
+      "date": "2026-09-16",
+      "slug": "3dmol-molecule-lab",
       "source": "manual-polymath-pick",
-      "x_pulse_7d_alphagenome_query": 973,
-      "note": "Educational browser demo inspired by AlphaGenome Atlas; uses igv.js; does NOT run DeepMind model weights"
+      "domain": "chemistry / structural biology"
     }
   ],
   "built": [
