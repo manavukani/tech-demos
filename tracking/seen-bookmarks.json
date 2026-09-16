@@ -6,7 +6,7 @@
       "url": "https://tanstack.com/start",
       "date": "2026-09-06",
       "slug": "tanstack-start-demo",
-      "source": "manual-pick"
+      "status": "built"
     },
     {
       "id": "copilotkit",
@@ -14,19 +14,15 @@
       "url": "https://www.copilotkit.ai/",
       "date": "2026-09-07",
       "slug": "copilotkit-moodboard",
-      "source": "manual-buzz-pick",
-      "status": "built",
-      "pr": "https://github.com/manavukani/tech-demos/pull/3"
+      "status": "built"
     },
     {
       "id": "json-render",
-      "title": "json-render (Vercel Labs)",
+      "title": "json-render",
       "url": "https://json-render.dev/",
       "date": "2026-09-11",
       "slug": "json-render-dashboard",
-      "source": "owner-approved-pick",
-      "status": "built",
-      "pr": "https://github.com/manavukani/tech-demos/pull/4"
+      "status": "built"
     },
     {
       "id": "papra",
@@ -34,9 +30,7 @@
       "url": "https://papra.app/",
       "date": "2026-09-11",
       "slug": "papra-inbox",
-      "source": "daily-x-tech-scout",
-      "status": "built",
-      "pr": "https://github.com/manavukani/tech-demos/pull/5"
+      "status": "built"
     },
     {
       "id": "tonejs",
@@ -44,35 +38,40 @@
       "url": "https://tonejs.github.io/",
       "date": "2026-09-16",
       "slug": "tonejs-orbital-chimes",
+      "status": "skipped"
+    },
+    {
+      "id": "alphagenome-igv",
+      "title": "AlphaGenome-inspired tracks (igv.js)",
+      "url": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
+      "lib": "https://github.com/igvteam/igv.js",
+      "date": "2026-09-16",
+      "slug": "alphagenome-tracks",
       "source": "manual-polymath-pick",
-      "x_pulse_7d": 122,
-      "domain": "music-synthesis + toy physics"
+      "x_pulse_7d_alphagenome_query": 973,
+      "note": "Educational browser demo inspired by AlphaGenome Atlas; uses igv.js; does NOT run DeepMind model weights"
     }
   ],
   "built": [
     {
       "id": "tanstack-start",
       "slug": "tanstack-start-demo",
-      "pr": "https://github.com/manavukani/tech-demos/pull/2",
-      "date": "2026-09-06"
+      "pr": "https://github.com/manavukani/tech-demos/pull/2"
     },
     {
       "id": "copilotkit",
       "slug": "copilotkit-moodboard",
-      "pr": "https://github.com/manavukani/tech-demos/pull/3",
-      "date": "2026-09-07"
+      "pr": "https://github.com/manavukani/tech-demos/pull/3"
     },
     {
       "id": "json-render",
       "slug": "json-render-dashboard",
-      "pr": "https://github.com/manavukani/tech-demos/pull/4",
-      "date": "2026-09-11"
+      "pr": "https://github.com/manavukani/tech-demos/pull/4"
     },
     {
       "id": "papra",
       "slug": "papra-inbox",
-      "pr": "https://github.com/manavukani/tech-demos/pull/5",
-      "date": "2026-09-11"
+      "pr": "https://github.com/manavukani/tech-demos/pull/5"
     }
   ]
 }
