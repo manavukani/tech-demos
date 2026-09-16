@@ -15,7 +15,6 @@
       "date": "2026-09-07",
       "slug": "copilotkit-moodboard",
       "source": "manual-buzz-pick",
-      "x_pulse_7d": 168,
       "status": "built",
       "pr": "https://github.com/manavukani/tech-demos/pull/3"
     },
@@ -26,24 +25,28 @@
       "date": "2026-09-11",
       "slug": "json-render-dashboard",
       "source": "owner-approved-pick",
-      "status": "in-progress",
+      "status": "built",
       "pr": "https://github.com/manavukani/tech-demos/pull/4"
     },
     {
       "id": "papra",
       "title": "Papra",
-      "url": "https://x.com/GithubProjects/status/2097935612896784720",
-      "homepage": "https://papra.app/en/",
-      "repo": "https://github.com/papra-hq/papra",
+      "url": "https://papra.app/",
       "date": "2026-09-11",
       "slug": "papra-inbox",
       "source": "daily-x-tech-scout",
-      "x_pulse_7d": 183,
-      "bookmark_metrics": {
-        "likes": 234,
-        "reposts": 26,
-        "bookmarks": 200
-      }
+      "status": "built",
+      "pr": "https://github.com/manavukani/tech-demos/pull/5"
+    },
+    {
+      "id": "tonejs",
+      "title": "Tone.js",
+      "url": "https://tonejs.github.io/",
+      "date": "2026-09-16",
+      "slug": "tonejs-orbital-chimes",
+      "source": "manual-polymath-pick",
+      "x_pulse_7d": 122,
+      "domain": "music-synthesis + toy physics"
     }
   ],
   "built": [
@@ -58,6 +61,18 @@
       "slug": "copilotkit-moodboard",
       "pr": "https://github.com/manavukani/tech-demos/pull/3",
       "date": "2026-09-07"
+    },
+    {
+      "id": "json-render",
+      "slug": "json-render-dashboard",
+      "pr": "https://github.com/manavukani/tech-demos/pull/4",
+      "date": "2026-09-11"
+    },
+    {
+      "id": "papra",
+      "slug": "papra-inbox",
+      "pr": "https://github.com/manavukani/tech-demos/pull/5",
+      "date": "2026-09-11"
     }
   ]
 }
