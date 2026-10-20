@@ -40,6 +40,15 @@
       "slug": "3dmol-molecule-lab",
       "source": "manual-polymath-pick",
       "domain": "chemistry / structural biology"
+    },
+    {
+      "id": "optmem",
+      "title": "OptMem (Victor Taelin)",
+      "url": "https://x.com/Granite0x/status/2082991065091452936",
+      "repo": "https://github.com/VictorTaelin/OptMem",
+      "date": "2026-10-20",
+      "slug": "optmem-memory-tree",
+      "status": "proposed"
     }
   ],
   "built": [
