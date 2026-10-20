@@ -48,7 +48,8 @@
       "repo": "https://github.com/VictorTaelin/OptMem",
       "date": "2026-10-20",
       "slug": "optmem-memory-tree",
-      "status": "proposed"
+      "status": "built",
+      "pr": "https://github.com/manavukani/tech-demos/pull/7"
     }
   ],
   "built": [
